@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<h2>MadLibs</h2>
+		<header>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/upload">Uploads</a>
+			</nav>
+		</header>
+		
+		<%p = params[:story]%>
+		<h2><%=p%></h2>
+		<%@noun = 0%>
+		<%@adjective = 0%>
+		<%@verb = 0%>
+		<% file = File.open("./uploads/#{p}.txt", "r")%>
+		<% @read = file.read %>
+		<% @read = @read.split(" ") %>
+		<% @read.each { |word|%>
+			<% if word["[noun]"]%>
+				<%@noun += 1%>
+			<%elsif word["[adjective]"]%>
+				<%@adjective += 1%>
+			<%elsif word["[verb]"]%>
+				<%@verb += 1%>
+			<% end %>
+		<%}%>
+		
+		<form action="/<%=p%>" method="post">
+		<ul>
+		<%noun_counter = 0%>
+		<% while noun_counter != @noun%>
+				</br>
+				Enter a Noun:
+				<li><input type="text" name="@noun_arr[]"></li>
+		<% noun_counter += 1 %>
+		<% end %>
+		
+		<%adjective_counter = 0%>
+		<% while adjective_counter != @adjective%>
+				</br>
+				Enter a Adjective:
+				<li><input type="text" name="@adjective_arr[]"></li>
+		<% adjective_counter += 1 %>
+		<% end %>
+		
+		<%verb_counter = 0%>
+		<% while verb_counter != @verb%>
+				</br>
+				Enter a Verb:
+				<li><input type="text" name="@verb_arr[]"></li>
+		<% verb_counter += 1 %>
+		<% end %>
+		</ul>
+			<input  type="submit" value="Submit">
+		</form>
+		
+		
+	</body>
+</html>

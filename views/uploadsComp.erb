@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<h2>MadLibs</h2>
+		<header>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/upload">Uploads</a>
+			</nav>
+		</header>
+		
+		<%@filename = params[:Upload][:filename]%>
+		<%file = params[:Upload][:tempfile]%>
+		
+		<%File.open("./uploads/#{@filename}" , 'wb') do |f| %>
+		<% f.write(file.read)%>
+		<% end %>
+		<h2>Upload Complete!!</h2>
+		
+	</body>
+</html>

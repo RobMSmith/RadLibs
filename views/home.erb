@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<h2>MadLibs</h2>
+		<header>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/upload">Uploads</a>
+			</nav>
+		</header>
+		
+		<% @folder = Dir.entries("uploads") %>
+		<% @folder.shift(2) %>
+		<ul>
+		<% @folder.each { |story| %>
+		<% story.chomp!(".txt") %>
+		
+			<li><a href="/<%=story%>" id="story"><%=story%></a></li>
+			<br>
+			<br>
+			<br>
+		
+		<% } %>
+		</ul>
+	</body>
+</html>

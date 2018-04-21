@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<h2>MadLibs</h2>
+		<header>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/upload">Uploads</a>
+			</nav>
+		</header>
+		<%p = params[:story]%>
+		<h2><%=p%></h2>
+		<% @noun = 0%>
+		<% @adjective = 0%>
+		<% @verb = 0%>
+		<% file = File.open("./uploads/#{p}.txt", "r")%>
+		<% @read = file.read %>
+		<% @read = @read.split(" ") %>
+		<% @read.each { |word|%>
+			<% if word["[noun]"]%>
+				<%word.replace("#{@noun_arr[@noun]}")%>
+				<% @noun += 1%>
+			<%elsif word["[adjective]"]%>
+				<%word.replace("#{@adjective_arr[@adjective]}")%>
+				<% @adjective += 1%>
+			<%elsif word["[verb]"]%>
+				<%word.replace("#{@verb_arr[@verb]}")%>
+				<% @verb += 1%>
+			<% end %>
+		<%}%>
+		
+		<% @read = @read.join(" ")%>
+		<h3><%= @read %></h3>
+	</body>
+</html>
